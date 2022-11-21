@@ -1,0 +1,17 @@
+.header{
+    border: 1px solid #fafafa;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+.navigation{
+    display: flex;
+    list-style: none;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.navigation li:hover{
+    color: #f0f0f0;
+    text-decoration: underline;
+}
