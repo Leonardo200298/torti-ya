@@ -10,7 +10,9 @@ export default function RootLayout({
         <Head/>
         <body>
           <Navigation/>
-          {children}
+          <main className="cnt">
+            {children}
+          </main>
         </body>
       </html>
     );

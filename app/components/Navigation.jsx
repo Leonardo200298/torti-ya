@@ -3,15 +3,15 @@ import Link from "next/link"
 import styles from "./Navigation.module.css"
 function Navigation() {
   return (
-    <header className={styles.header}>
-        <nav>
-            <ul className={styles.navigation}>
-                <li><Link href="/">Home</Link></li>
-                <li><Link href="/productos">Productos</Link></li>
-                <li><Link href="/pedidos">Pedidos</Link></li>
-            </ul>
-        </nav>
-    </header>
+    <nav className={styles.nav}>
+      <h1>TortiYa</h1>
+      <ul className={styles.navigation}>
+          
+          <li><Link href="/">Productos</Link></li>
+          <li><Link href="/carrito">Carrito</Link></li>
+          <li><Link href="/about">Sobre nosotros</Link></li>
+      </ul>        
+    </nav>
   )
 }
 

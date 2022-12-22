@@ -1,11 +1,21 @@
-import React from 'react'
+"use client"
+import { React, useState, useEffect } from 'react'
+import { Image } from 'next/image'
 
-export default function Home() {
-  return (
-    <div className='h-100'>
-      {/*reemplazar con data sobre nosotros*/}
-      <h1>TortiYa</h1>
-      <p>Sed non diam iaculis, gravida enim ut, laoreet libero. Pellentesque sit amet posuere ante. Maecenas.</p>
-    </div>
-  )
+const fetchProducts = async () => {
+    /*poner la data que traemos desde supabase/productos*/
+}
+
+export default function Page() {
+    const [items, setItems] = useState([])
+
+    useEffect(()=>{
+        setItems(fetchProducts)
+    },[])
+
+    return (
+        <section>
+            <p>Acá irían los productos obtenidos de la base</p>
+        </section>
+    )
 }
