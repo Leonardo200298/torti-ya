@@ -1,27 +1,47 @@
 "use client"
-import { React, useState, useEffect } from 'react'
+import { React, useState, useEffect, useRef } from 'react'
 import { createClient } from '@supabase/supabase-js'
-
-async function fetchItems(){
-    const supabaseUrl = process.env.API_URL
-    const supabaseKey = process.env.API_KEY
-    console.log('La URL es:'+supabaseUrl+' y la clave es:'+supabaseKey)
-    const supabase = createClient(supabaseUrl, supabaseKey)
-}
+import Image from 'next/image'
+import Lista from './components/Lista'
 
 export default function Page() {
-    const [items, setItems] = useState([])
+    let supabaseUrl = process.env.NEXT_PUBLIC_API_URL
+    let supabaseKey = process.env.NEXT_PUBLIC_API_KEY
+    const supabase = createClient(supabaseUrl, supabaseKey)
+    
+    const [error, setError] = useState(null)
+    const [tortillas, setTortillas] = useState(null)
+    const dbfetch = useRef(false)
 
+    //1. este useEffect trae la info de la DB cuando se crea la función
     useEffect(()=>{
-        fetchItems()
-        //fetchItems().map((item)=>setItems([...items, item]))
+        async function fetchTortillas(){
+            const { data, error } = await supabase
+                .from('products')
+                .select('*')
+            if(error){
+                setError(error)
+                setTortillas(null)
+                console.error(error)
+                return;
+            }
+            if(data){
+                setTortillas(data)
+                setError(null)
+            }
+        }
+        //evitar ejecución múltiple del useEffect
+        if(dbfetch.current) return;
+        dbfetch.current = true;
+        //a ver qué logramos
+        fetchTortillas()
+        console.log('tenés esto que te llega de la db: '+tortillas)
     },[])
-
-    console.log(items)
 
     return (
         <section>
-            <p>Acá irían los productos obtenidos de la base</p>
+            {console.log('acá tenés antes de pasar la prop:'+tortillas)}
+            <Lista items={tortillas}/>
         </section>
     )
 }
